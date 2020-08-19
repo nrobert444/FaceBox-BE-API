@@ -1,33 +1,28 @@
 const express = require('express')
+const bcrypt = require('bcryptjs')
+const cors = require('cors')
 
 const app = express()
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
+app.use(cors())
 
 const database = {
   users: [
     {
       id: '123',
       name: 'John',
-      email: 'john@gmail.com',
       password: 'cookies',
+      email: 'john@gmail.com',
       entries: 0,
       joined: new Date()
     },
     {
       id: '456',
       name: 'Nick',
-      email: 'Nick@gmail.com',
       password: 'pizza',
-      entries: 0,
-      joined: new Date()
-    },
-    {
-      id: '789',
-      name: 'Sean',
-      email: 'sean@gmail.com',
-      password: 'cheese',
+      email: 'Nick@gmail.com',
       entries: 0,
       joined: new Date()
     }
@@ -49,6 +44,7 @@ app.post('/signin', (req, res) => {
 })
 app.post('/register', (req, res) => {
   const { email, name, password } = req.body
+
   database.users.push({
     id: '125',
     name,
