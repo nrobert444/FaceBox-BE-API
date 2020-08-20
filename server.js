@@ -1,6 +1,19 @@
 const express = require('express')
 const bcrypt = require('bcryptjs')
 const cors = require('cors')
+const knex = require('knex')
+
+const postgres = knex({
+  client: 'pg',
+  connection: {
+    host: '127.0.0.1',
+    user: 'nick',
+    password: '',
+    database: 'face-box'
+  }
+})
+
+postgres.select('*').from('users')
 
 const app = express()
 
@@ -37,19 +50,18 @@ app.post('/signin', (req, res) => {
     req.body.email === database.users[0].email &&
     req.body.password === database.users[0].password
   ) {
-    res.json('success')
+    res.json(database.users[0])
   } else {
     res.status(400).json('Error logging in')
   }
 })
 app.post('/register', (req, res) => {
-  const { email, name, password } = req.body
+  const { email, name } = req.body
 
   database.users.push({
     id: '125',
     name,
     email,
-    password,
     entries: 0,
     joined: new Date()
   })
