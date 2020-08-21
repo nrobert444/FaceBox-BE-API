@@ -18,6 +18,8 @@ const db = knex({
   }
 })
 
+const PORT = process.env.PORT || 3000
+
 const app = express()
 
 app.use(express.urlencoded({ extended: false }))
@@ -36,6 +38,6 @@ app.get('/profile/:id', profileId.getProfileById(db))
 app.put('/image', image.handleImage(db))
 app.post('/imageurl', image.handleApiCall)
 
-app.listen(3000, () => {
-  console.log('App listening on port 3000!')
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}!`)
 })
